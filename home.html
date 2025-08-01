@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>主页</title>
+    <title>you are cursed</title>
     <style>
         body {
             font-family: 'Arial', sans-serif;
             margin: 0;
             padding: 0;          
-  animation: colorChange 3s infinite alternate;
+  animation: colorChange 500ms infinite alternate;
   min-height: 100vh;
 
 
@@ -58,7 +58,17 @@
             padding: 8px 15px;
             border-radius: 4px;
             cursor: pointer;
+             transition: all 0.3s;
         }
+        .logout-btn:hover {
+            background-color: #920c0c;
+    color: white;
+    transform: scale(1.05); /* 轻微放大效果 */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* 添加红色阴影 */
+        }
+        .logout-btn:active {
+    transform: scale(0.98); /* 点击时轻微缩小 */
+}
     </style>
 </head>
 <body>
@@ -71,16 +81,16 @@
         <h2>!!!!!!!!!DANGER!!!!!!!!!</h2>
         <p>æ¯”è¾ƒè¾“å…¥çš„éduªŒè¯ç å’Œå®žé™</p>
     </div>
-<img src="1947215bc9a7ad8f90b7345fc853c8e.jpg"  title="示例" >
+<video width="640" height="360" controls>
+  <source src="c:\Users\flyin\OneDrive\桌面\pr创作\cursed video.mp4" type="video/mp4">
+  
+  
+</video>
     <script>
         // 检查登录状态
-        if (!sessionStorage.getItem('isLoggedIn')) {
-            // 未登录，跳转到登录页
-            window.location.href = 'index.html';
-        }
         
-        // 显示用户名
-        document.getElementById('welcomeUser').textContent = sessionStorage.getItem('username') || '用户';
+        
+       
         
         // 退出登录
         document.getElementById('logoutBtn').addEventListener('click', function() {
