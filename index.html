@@ -1,354 +1,447 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="zh">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>用户登录</title>
+    <title>英雄选择</title>
     <style>
-        body { -webkit-user-select: none; /* Chrome/Safari */
-    -moz-user-select: none;    /* Firefox */
-    -ms-user-select: none;     /* IE/Edge */
-    user-select: none;         /* 标准语法 */
-             font-family: "STKaiti", "KaiTi", serif;
-             background: linear-gradient(45deg, #ff9a9e, #fad0c4, #a18cd1, #fbc2eb, #ff9a9e);
-  background-size:400% 400%;
-  animation: gradientBG 15s ease infinite;
-  height: 100vh;
-  margin: 0;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            height: 100vh;
+            width: 100vw;
+            overflow: hidden;
+            background: black;
+        }
+        h1 {
+            font-size: 70px;
+            font-family: "STKaiti", "KaiTi", serif;
+            text-align: center;
+            color: #d0e3d7;
+            margin: 0 0 0;
+            font-weight: 800;
+            line-height: 2;
+            text-shadow: 1px 1px 16px rgba(0, 0, 0, 0.9);
+        }
+        h2 {
+            font-size: 20px;
+            font-family: "STKaiti", "KaiTi", serif;
+            text-align: center;
+            color: #d0e3d7;
+            margin: 0 0 0;
+            font-weight: 800;
+            line-height: 2;
+            text-shadow: 1px 1px 16px rgba(0, 0, 0, 0.9);
+        }
+        .gif-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            grid-auto-rows: minmax(400px, auto);
+            gap: 20px;
+            height: auto;
+            width: 90vw;
+            padding: 20px;
+            margin: 0 auto;
+            justify-items: center;
+        }
+
+        .gif-card {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            max-width: 300px;
+            align-items: center;
+        }
+
+        .gif-item {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            border-radius: 8px;
+            transition: transform 0.3s;
+            background-color: #333;
+        }
+
+        .gif-item:hover {
+            transform: scale(1.05);
+            z-index: 1;
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+        }
+
+        .caption {
+            font-family: "STKaiti", "KaiTi", serif;
+            color: #d0e3d7;
+            font-size: 40px;
+            text-align: center;
+            padding: 15px 0 5px;
+            text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.8);
+            width: 100%;
+        }
+
+        .select-btn1 {
+            font-family: "STKaiti", "KaiTi", serif;
+            font-size: 20px;
+            color: #ff0000d1;
+            background: rgba(0, 0, 0, 0.5);
+            border: 2px solid #dd0707;
+            border-radius: 25px;
+            padding: 8px 60px;
+            margin-top: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .select-btn1:hover {
+            background: rgba(117, 117, 94, 0.3);
+            transform: scale(1.05);
+        }
+         .select-btn2 {
+            font-family: "STKaiti", "KaiTi", serif;
+            font-size: 20px;
+           color: #ff0000d1;
+            background: rgba(0, 0, 0, 0.5);
+            border: 2px solid #dd0707;
+            border-radius: 25px;
+            padding: 8px 60px;
+            margin-top: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .select-btn2:hover {
+            background: rgba(117, 117, 94, 0.3);
+            transform: scale(1.05);
+        }
+         .select-btn3 {
+            font-family: "STKaiti", "KaiTi", serif;
+            font-size: 20px;
+           color: #ff0000d1;
+            background: rgba(0, 0, 0, 0.5);
+            border: 2px solid #dd0707;
+            border-radius: 25px;
+            padding: 8px 60px;
+            margin-top: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .select-btn3:hover {
+            background: rgba(117, 117, 94, 0.3);
+            transform: scale(1.05);
+        }
+         .select-btn4 {
+            font-family: "STKaiti", "KaiTi", serif;
+            font-size: 20px;
+            color: #272323;
+            background: rgba(211, 199, 199, 0.5);
+            border: 2px solid #bcadad;
+            border-radius: 25px;
+            padding: 8px 60px;
+            margin-top: 5px;
+        }
+        
+         .select-btn5 {
+            font-family: "STKaiti", "KaiTi", serif;
+            font-size: 20px;
+            color: #ec6200;
+            background: rgb(238, 251, 0);
+            border: 2px solid #d0e3d7;
+            border-radius: 25px;
+            padding: 8px 60px;
+            margin-top: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .select-btn5:hover {
+            background: rgba(171, 189, 16, 0.514);
+            transform: scale(1.05);
+        }
+
+        /* 充值弹窗样式 */
+        .recharge-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .recharge-content {
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            border-radius: 15px;
+            width: 90%;
+            max-width: 500px;
+            padding: 30px;
+            position: relative;
+            box-shadow: 0 0 30px rgba(0, 150, 255, 0.5);
+            animation: modalFadeIn 0.3s ease-out;
+            border: 2px solid #4facfe;
+        }
+
+        @keyframes modalFadeIn {
+            from { opacity: 0; transform: translateY(-50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 28px;
+             box-shadow: 
+    0 0px 8px rgb(255, 0, 0),
+    inset 0 0px 4px rgba(255, 255, 255, 0.8),
+    inset 0 0px 4px rgba(0, 0, 0, 0.05);
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s;
+            width: 35px;
+            height: 35px;
             display: flex;
             justify-content: center;
             align-items: center;
-           
+            border-radius: 50%;
+            background: rgba(255, 0, 0, 0.7);
         }
-        @keyframes gradientBG {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
-}
-        
-        
-        .login-container {
-            background: linear-gradient(45deg, #4106e4, #d70b6e, #0a99dc, #4d1854, #3138fa);
-  background-size:400% 400%;
-  animation: gradientBG 15s ease infinite;
-           
-            padding: 30px;
-            border-radius: 30px;
-           box-shadow: 
-    0 0px 100px rgba(40, 6, 231, 0.9),                /* 外阴影 */
-    inset 0 0 8px rgba(255, 255, 255, 0.59),      /* 内阴影-亮部 */
-    inset 0 0 8px rgba(0, 0, 0, 0.55);          /* 内阴影-暗部 */
-                       
-            width: 350px;
+
+        .close-btn:hover {
+            
+            background: rgba(255, 0, 0, 0.9);
+             transform: scale(1.1);
         }
-        
-       h1 {
-  font-size: 70px;
-  font-family: "STKaiti", "KaiTi", serif;
-  text-align: center;
-  color: #d0e3d7;
-  margin: 10px 0 20px; /* 优化了margin，增加下边距 */
-  font-weight: 800; /* 增加字重，使标题更突出 */
-  line-height: 2; /* 设置行高，改善可读性 */
-  text-shadow: 1px 1px 16px rgba(0, 0, 0, 0.9); /* 可选：添加微妙的文字阴影 */
-}
- .gradient-text {
-            font-size: 70px;
-            font-weight: bold;
-           background: linear-gradient(45deg, #eeff00, #fc0000, #ffee00, #ae00ff, #0400ff);
-            background-size: 400% 400%;
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            animation: gradient 8s ease infinite;
-        }
-        
-        @keyframes gradient {
-            0% {
-                background-position: 0% 50%;
-            }
-            50% {
-                background-position: 100% 50%;
-            }
-            100% {
-                background-position: 0% 50%;
-            }
-        }
-h2 {
-   font-family: "STKaiti", "KaiTi", serif;
-  text-align: center;
-  color: #ffffff;
-   letter-spacing: 12px;
-  font-size: 28px; /* 建议明确设置h2的字体大小 */
-  margin: 15px 0; /* 优化margin */
-  font-weight: 600; /* 设置合适的字重 */
-  line-height: 1.2;
-  text-shadow: 1px 1px 16px rgba(255, 255, 255, 0.9); /* 白色文字在浅色背景上需要阴影增强可读性 */
-}
-        
-        .form-group {
-            margin-bottom: 20px;
+
+        .recharge-title {
+            font-family: "STKaiti", "KaiTi", serif;
+            font-size: 32px;
+            color: #eeff00;
             text-align: center;
+            margin-bottom: 25px;
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
         }
-        
-        label {
-            display: block;
-            margin-bottom: 8px;
+
+        .recharge-hero {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .recharge-hero-name {
+            font-size: 50px;
+              
+            font-family: "STKaiti", "KaiTi", serif;
+            text-align: center;
+            color: #ffbb00;
+            font-weight: 800;
+            line-height: 1.5;
+            text-shadow: 1px 1px 16px rgba(0, 0, 0, 0.9);
+        }
+
+        .recharge-options {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .recharge-option {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+        }
+
+        .recharge-option:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-3px);
+        }
+
+        .recharge-option.selected {
+            border-color: #ffd700;
+            background: rgba(255, 215, 0, 0.1);
+        }
+
+        .recharge-amount {
+            font-size: 22px;
             font-weight: bold;
-            color: #d0cece;
+            color: white;
         }
-        
-        input {
-            width: 60%;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 40px;
-            box-sizing: border-box;
-            font-size: 16px;
-            margin: 0 auto;
-            display: block;
-        }
-        
-        button {
-            
-            letter-spacing: 25px;
-             text-align: center;
-  text-indent: 23px; 
-            
-            font-family: "KaiTi", "STKaiti", serif;
-            width: 70%;
-            padding: 12px;
-             background: linear-gradient(to bottom, #33a654, #09e0ce);;
-             box-shadow: 
-    0 0px 25px rgba(0, 255, 162, 0.9),
-    inset 0 0px 16px rgba(255, 255, 255, 0.8),
-    inset 0 0px 16px rgba(0, 0, 0, 0.05);
-            color: rgb(255, 255, 255);
-            border: none;
-             
-            border-radius: 25px;
-            font-size: 16px;
-            cursor: pointer;
-            transition: all 0.3s;
-             display: block;
-  margin: 0 auto;
-  margin-bottom: 20px;
-  
-        }
-        
-        button:hover {
-            background-color: #059499;
-             color: rgb(255, 255, 255);
-             box-shadow: 0 0 10px rgba(0, 221, 255, 0.9); 
-    transform: scale(1.1); /* 轻微放大效果 */
-        }
-        button:active {
-    transform: scale(0.98); /* 点击时轻微缩小 */
-}
 
-
-  .b2 { 
-            letter-spacing: 25px;
-             text-align: center;
-  text-indent: 23px; 
-            
-            font-family: "KaiTi", "STKaiti", serif;
-            width: 70%;
-            padding: 12px;
-             background: linear-gradient(to bottom, #ff0000, #ff5602);;
-             box-shadow: 
-    0 0px 25px rgba(255, 0, 0, 0.9),
-    inset 0 0px 16px rgba(255, 255, 255, 0.8),
-    inset 0 0px 16px rgba(0, 0, 0, 0.05);
-            color: rgb(255, 255, 255);
-            border: none;
-            border-radius: 25px;
-            font-size: 16px;
-            cursor: pointer;
-            transition: all 0.3s;
-             display: block;
-  margin: 0 auto;
-        }
-        
-        .b2:hover {
-            background-color: #c32d00;
-             color: rgb(255, 255, 255);
-             box-shadow: 0 0 10px rgba(255, 0, 0, 0.9); 
-    transform: scale(1.1); /* 轻微放大效果 */
-        }
-        .b2:active {
-    transform: scale(0.98); /* 点击时轻微缩小 */
-}
-        
-        .error { 
-            color: #d32f2f;
-            font-size: 14px;
+        .recharge-price {
+            font-size: 18px;
+            color: #4caf50;
             margin-top: 5px;
-             margin-bottom: 30px; /* 新增，控制与按钮的间距 */
-            display: none;
-             
         }
-         #username::placeholder {
-    font-family: "KaiTi", "STKaiti", serif;
-    font-size: 16px;
-    color: #999;
-  }
+
+        .confirm-btn {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(to right, #ff8a00, #e52e71);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-size: 20px;
+            font-family: "STKaiti", "KaiTi", serif;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .confirm-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+        }
     </style>
 </head>
 <body>
-    <div class="login-container">
-        <h1 class="gradient-text">亲子鉴定</h1>
-        <form id="loginForm">
-            <div class="form-group">
-                <h2>贾天毅是</h2>
-                <input type="text" id="username" name="username" required placeholder="输入父亲姓名">
-                <h2>的儿子</h2>
-                <div id="usernameError" class="error">请输入父亲姓名</div>
-            </div>
-            
-            <div id="loginError" class="error" style="text-align: center; margin-bottom: 15px;"></div>
-            
-            <button type="submit"  >验证</button>
-             
-           
-        </form>
-        <button  class="b2" onclick="toggleMusic()">跳过</button>
+    <h1>请选择你的英雄</h1>
+    <div class="gif-container">
+        <!-- 第一张图片和文字 -->
+        <div class="gif-card">
+            <img class="gif-item" src="pic/093FFF931FBC0DBC08964DEF491C494E.jpg">
+            <div class="caption">郭戌</div>
+            <button class="select-btn1">就选他了</button>
+        </div>
+        
+        <!-- 第二张图片和文字 -->
+        <div class="gif-card">
+            <img class="gif-item" src="pic/3021FC0CE0AEB8C53608999B80C87B64.jpg">
+            <div class="caption">高胜骞</div>
+            <button class="select-btn2">就选他了</button>
+        </div>
+        
+        <!-- 第三张图片和文字 -->
+        <div class="gif-card">
+            <img class="gif-item" src="pic/7D1D7B5E3F5F0FF4845EF4ED94F6E6F5.jpg">
+            <div class="caption">贾天毅</div>
+            <button class="select-btn3">就选他了</button>
+        </div>
+        
+        <!-- 第四张图片和文字 -->
+        <div class="gif-card">
+            <img class="gif-item" src="pic/0CB156F871D503CDD2D0EF9B85322643.jpg">
+            <div class="caption">未知</div>
+            <button class="select-btn4">敬请期待</button>
+        </div>
+        
+        <!-- 第五张图片和文字 -->
+        <div class="gif-card">
+            <img class="gif-item" src="pic/FB9B98D30BF8A335B386B84733641D94.jpg">
+            <div class="caption">曼</div>
+            <button class="select-btn5">充值获取</button>
+        </div>
     </div>
 
-
-    <audio id="bgMusic"  autoplay>
-  <source src="music/sb.mp3" type="audio/mpeg">
-</audio>
- <audio id="errorSound">
-        <source src="music/孙笑川-怎么会有这么憨憨的人啊1_爱给网_aigei_com.mp3" type="audio/mpeg">
-    </audio>
-    <audio id="s2">
-        <source src="music/卢本伟猴子笑_爱给网_aigei_com.mp3" type="audio/mpeg">
-    </audio>
-
-
+    <!-- 充值弹窗 -->
+    <div id="rechargeModal" class="recharge-modal">
+        <div class="recharge-content">
+            <span class="close-btn">&times;</span>
+            <h2 class="recharge-title">英雄充值</h2>
+            
+            <div class="recharge-hero">
+                <div class="recharge-hero-name">曼</div>
+                <h2>解锁此英雄需要充值</h2>
+            </div>
+            
+            <div class="recharge-options">
+                <div class="recharge-option" data-amount="30">
+                    <div class="recharge-amount">30元</div>
+                    <div class="recharge-price">获得300钻石</div>
+                </div>
+                <div class="recharge-option" data-amount="50">
+                    <div class="recharge-amount">50元</div>
+                    <div class="recharge-price">获得550钻石</div>
+                </div>
+                <div class="recharge-option" data-amount="98">
+                    <div class="recharge-amount">98元</div>
+                    <div class="recharge-price">获得1200钻石</div>
+                </div>
+                <div class="recharge-option" data-amount="198">
+                    <div class="recharge-amount">198元</div>
+                    <div class="recharge-price">获得2600钻石</div>
+                </div>
+            </div>
+            
+            <button class="confirm-btn">立即充值</button>
+        </div>
+    </div>
 
     <script>
-        window.onload = function() {
-  var audio = document.getElementById('bgMusic');
-  audio.muted =false; // 开始静音
-  audio.play();
-  
-  // 用户交互后取消静音
-  document.body.addEventListener('click', function() {
-    audio.muted = false;
-  }, { once: true }); // 只执行一次
-};
-
-
-function toggleMusic() {
-  var audio = document.getElementById('bgMusic');
-  if (audio.paused) {
-    audio.play();
-    this.textContent = '暂停音乐';
-  } 
-}
-
-
-
-
-
-
-        document.getElementById('loginForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            // 获取输入值
-            const username = document.getElementById('username').value.trim();
-              
-            
-            // 重置错误提示
-            document.getElementById('usernameError').style.display = 'none';
-            document.getElementById('loginError').style.display = 'none';
-            
-            // 验证输入
-            if (!username) {
-                document.getElementById('usernameError').style.display = 'block';
-                return;
-            }
-            
-            // 模拟登录验证
-            if (username === '俞盟涛') { const s2= document.getElementById('s2');
-                s2.currentTime = 0; // 重置音频到开头
-                s2.play();
-                  const submitBtn = document.querySelector('button[type="submit"]');
-        submitBtn.disabled = true;
-                  const style = document.createElement('style');
-    style.id = 'cursor-style';
-    style.innerHTML = `
-        * {
-            cursor: wait !important;
-        }
-    `;
-    document.head.appendChild(style);
-                // 登录成功
-                sessionStorage.setItem('isLoggedIn', 'true');
-                sessionStorage.setItem('username', username);
-                
-                // 跳转到主页
-                setTimeout(function() {document.getElementById('cursor-style').remove();
-        // 恢复按钮状态
-        submitBtn.disabled = false;
-        window.location.href = 'home.html';
-    }, 4000);
-            } else { playErrorSound();
-                // 登录失败
-                document.getElementById('loginError').textContent = '你连你爹都不认识了吗！';
-                document.getElementById('loginError').style.display = 'block';
+        // 英雄选择按钮事件
+        document.querySelector('.select-btn1').addEventListener('click', function() {
+            sessionStorage.setItem('selectedHero', '郭戌');
+            window.location.href = 'login.html';
+        });
+        
+        document.querySelector('.select-btn2').addEventListener('click', function() {
+            sessionStorage.setItem('selectedHero', '高胜骞');
+            window.location.href = 'login.html';
+        });
+        
+        document.querySelector('.select-btn3').addEventListener('click', function() {
+            sessionStorage.setItem('selectedHero', '贾天毅');
+            window.location.href = 'login.html';
+        });
+        
+        // 充值获取按钮事件
+        document.querySelector('.select-btn5').addEventListener('click', function() {
+            document.getElementById('rechargeModal').style.display = 'flex';
+        });
+        
+        // 关闭按钮事件
+        document.querySelector('.close-btn').addEventListener('click', function() {
+            document.getElementById('rechargeModal').style.display = 'none';
+        });
+        
+        // 点击弹窗外部关闭
+        document.getElementById('rechargeModal').addEventListener('click', function(e) {
+            if(e.target === this) {
+                this.style.display = 'none';
             }
         });
-
-        function playErrorSound() {
-            const errorSound = document.getElementById('errorSound');
-            try {
-                errorSound.currentTime = 0; // 重置音频到开头
-                errorSound.play().catch(e => console.log('无法播放错误音效:', e));
-            } catch (e) {
-                console.log('播放错误音效出错:', e);
-            }
-        }
-   
-        // 设置秘密密码
-        const secretPassword = "114514";
-        let inputBuffer = "";
         
-        // 监听键盘输入
-        document.addEventListener('keydown', function(event) {
-            // 将按键添加到缓冲区
-            inputBuffer += event.key.toLowerCase();
-            
-            // 检查缓冲区是否包含秘密密码
-            if (inputBuffer.includes(secretPassword)) {
+        // 充值选项点击事件
+        document.querySelectorAll('.recharge-option').forEach(option => {
+            option.addEventListener('click', function() {
+                document.querySelectorAll('.recharge-option').forEach(opt => {
+                    opt.classList.remove('selected');
+                });
+                this.classList.add('selected');
+            });
+        });
+        
+        // 确认充值按钮事件
+        document.querySelector('.confirm-btn').addEventListener('click', function() {
+            const selectedOption = document.querySelector('.recharge-option.selected');
+            if(selectedOption) {
+                const amount = selectedOption.getAttribute('data-amount');
+                alert(`充值成功！您已充值${amount}元，获得英雄"曼"，以下是DLC内容与隐藏剧情！`);
+                document.getElementById('rechargeModal').style.display = 'none';
+                window.location.href="https://www.bilibili.com/video/BV1qU4y1F73A/?spm_id_from=333.337.search-card.all.click&vd_source=173d136c50fcfcc337cecbf5ba7adec9";
                 
-                
-                // 1秒后跳转到秘密页面
-                setTimeout(function() {
-                    window.location.href = "home.html"; // 替换为你的隐藏页面URL
-                }, 1);
-            }
-            
-            // 防止缓冲区过大
-            if (inputBuffer.length > secretPassword.length * 2) {
-                inputBuffer = inputBuffer.slice(-secretPassword.length * 2);
+                // 这里可以添加实际的充值逻辑
+                // 例如跳转到支付页面或发送充值请求
+            } else {
+                alert('请选择充值金额');
             }
         });
     </script>
-
-
-
-
-
 </body>
 </html>
-
-
