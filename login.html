@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>用户登录</title>
+    <style>
+        body { -webkit-user-select: none; /* Chrome/Safari */
+    -moz-user-select: none;    /* Firefox */
+    -ms-user-select: none;     /* IE/Edge */
+    user-select: none;         /* 标准语法 */
+             font-family: "STKaiti", "KaiTi", serif;
+             background: linear-gradient(45deg, #ff9a9e, #fad0c4, #a18cd1, #fbc2eb, #ff9a9e);
+  background-size:400% 400%;
+  animation: gradientBG 15s ease infinite;
+  height: 100vh;
+  margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+           
+        }
+        @keyframes gradientBG {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+        
+        
+        .login-container {
+            background: linear-gradient(45deg, #4106e4, #d70b6e, #0a99dc, #4d1854, #3138fa);
+  background-size:400% 400%;
+  animation: gradientBG 15s ease infinite;
+           
+            padding: 30px;
+            border-radius: 30px;
+           box-shadow: 
+    0 0px 100px rgba(40, 6, 231, 0.9),                /* 外阴影 */
+    inset 0 0 8px rgba(255, 255, 255, 0.59),      /* 内阴影-亮部 */
+    inset 0 0 8px rgba(0, 0, 0, 0.55);          /* 内阴影-暗部 */
+                       
+            width: 350px;
+        }
+        
+       h1 {
+  font-size: 70px;
+  font-family: "STKaiti", "KaiTi", serif;
+  text-align: center;
+  color: #d0e3d7;
+  margin: 10px 0 20px; /* 优化了margin，增加下边距 */
+  font-weight: 800; /* 增加字重，使标题更突出 */
+  line-height: 2; /* 设置行高，改善可读性 */
+  text-shadow: 1px 1px 16px rgba(0, 0, 0, 0.9); /* 可选：添加微妙的文字阴影 */
+}
+ .gradient-text {
+            font-size: 70px;
+            font-weight: bold;
+           background: linear-gradient(45deg, #eeff00, #fc0000, #ffee00, #ae00ff, #0400ff);
+            background-size: 400% 400%;
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: gradient 8s ease infinite;
+        }
+        
+        @keyframes gradient {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+h2 {
+   font-family: "STKaiti", "KaiTi", serif;
+  text-align: center;
+  color: #ffffff;
+   letter-spacing: 12px;
+  font-size: 28px; /* 建议明确设置h2的字体大小 */
+  margin: 15px 0; /* 优化margin */
+  font-weight: 600; /* 设置合适的字重 */
+  line-height: 1.2;
+  text-shadow: 1px 1px 16px rgba(255, 255, 255, 0.9); /* 白色文字在浅色背景上需要阴影增强可读性 */
+}
+        
+        .form-group {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #d0cece;
+        }
+        
+        input {
+            width: 60%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 40px;
+            box-sizing: border-box;
+            font-size: 16px;
+            margin: 0 auto;
+            display: block;
+        }
+        
+        button {
+            
+            letter-spacing: 25px;
+             text-align: center;
+  text-indent: 23px; 
+            
+            font-family: "KaiTi", "STKaiti", serif;
+            width: 70%;
+            padding: 12px;
+             background: linear-gradient(to bottom, #33a654, #09e0ce);;
+             box-shadow: 
+    0 0px 25px rgba(0, 255, 162, 0.9),
+    inset 0 0px 16px rgba(255, 255, 255, 0.8),
+    inset 0 0px 16px rgba(0, 0, 0, 0.05);
+            color: rgb(255, 255, 255);
+            border: none;
+             
+            border-radius: 25px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s;
+             display: block;
+  margin: 0 auto;
+  margin-bottom: 20px;
+  
+        }
+        
+        button:hover {
+            background-color: #059499;
+             color: rgb(255, 255, 255);
+             box-shadow: 0 0 10px rgba(0, 221, 255, 0.9); 
+    transform: scale(1.1); /* 轻微放大效果 */
+        }
+        button:active {
+    transform: scale(0.98); /* 点击时轻微缩小 */
+}
+
+
+  .b2 { 
+            letter-spacing: 25px;
+             text-align: center;
+  text-indent: 23px; 
+            
+            font-family: "KaiTi", "STKaiti", serif;
+            width: 70%;
+            padding: 12px;
+             background: linear-gradient(to bottom, #ff0000, #ff5602);;
+             box-shadow: 
+    0 0px 25px rgba(255, 0, 0, 0.9),
+    inset 0 0px 16px rgba(255, 255, 255, 0.8),
+    inset 0 0px 16px rgba(0, 0, 0, 0.05);
+            color: rgb(255, 255, 255);
+            border: none;
+            border-radius: 25px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s;
+             display: block;
+  margin: 0 auto;
+        }
+        
+        .b2:hover {
+            background-color: #c32d00;
+             color: rgb(255, 255, 255);
+             box-shadow: 0 0 10px rgba(255, 0, 0, 0.9); 
+    transform: scale(1.1); /* 轻微放大效果 */
+        }
+        .b2:active {
+    transform: scale(0.98); /* 点击时轻微缩小 */
+}
+        
+        .error { 
+            color: #d32f2f;
+            font-size: 14px;
+            margin-top: 5px;
+             margin-bottom: 30px; /* 新增，控制与按钮的间距 */
+            display: none;
+             
+        }
+         #username::placeholder {
+    font-family: "KaiTi", "STKaiti", serif;
+    font-size: 16px;
+    color: #999;
+  }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <h1 class="gradient-text">亲子鉴定</h1>
+        <form id="loginForm">
+            <div class="form-group">
+                <h2>贾天毅是</h2>
+                <input type="text" id="username" name="username" required placeholder="输入父亲姓名">
+                <h2>的儿子</h2>
+                <div id="usernameError" class="error">请输入父亲姓名</div>
+            </div>
+            
+            <div id="loginError" class="error" style="text-align: center; margin-bottom: 15px;"></div>
+            
+            <button type="submit"  >验证</button>
+           
+        </form>
+<button  class="b2" onclick="toggleMusic()">跳过</button>
+    </div>
+
+
+    <audio id="bgMusic"  autoplay>
+  <source src="music/sb.mp3" type="audio/mpeg">
+</audio>
+ <audio id="errorSound">
+        <source src="music/孙笑川-怎么会有这么憨憨的人啊1_爱给网_aigei_com.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="s2">
+        <source src="music/卢本伟猴子笑_爱给网_aigei_com.mp3" type="audio/mpeg">
+    </audio>
+
+
+
+    <script>
+        window.onload = function() {
+            const selectedHero = sessionStorage.getItem('selectedHero');
+            const h2Elements = document.querySelectorAll('h2');
+    
+    // 如果有选中的英雄，替换标题中的名字
+    if(selectedHero) {
+        h2Elements[0].textContent = `${selectedHero}是`;
+        h2Elements[1].textContent = '的儿子';}
+  var audio = document.getElementById('bgMusic');
+  audio.muted =false; // 开始静音
+  audio.play();
+  
+  // 用户交互后取消静音
+  document.body.addEventListener('click', function() {
+    audio.muted = false;
+  }, { once: true }); // 只执行一次
+};
+
+
+function toggleMusic() {
+  var audio = document.getElementById('bgMusic');
+  if (audio.paused) {
+    audio.play();
+    this.textContent = '暂停音乐';
+  } 
+}
+
+
+
+
+
+
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // 获取输入值
+            const username = document.getElementById('username').value.trim();
+              
+            
+            // 重置错误提示
+            document.getElementById('usernameError').style.display = 'none';
+            document.getElementById('loginError').style.display = 'none';
+            
+            // 验证输入
+            if (!username) {
+                document.getElementById('usernameError').style.display = 'block';
+                return;
+            }
+            
+            // 模拟登录验证
+            if (username === '俞盟涛') { const s2= document.getElementById('s2');
+                s2.currentTime = 0; // 重置音频到开头
+                s2.play();
+                  const submitBtn = document.querySelector('button[type="submit"]');
+        submitBtn.disabled = true;
+                  const style = document.createElement('style');
+    style.id = 'cursor-style';
+    style.innerHTML = `
+        * {
+            cursor: wait !important;
+        }
+    `;
+    document.head.appendChild(style);
+                // 登录成功
+                sessionStorage.setItem('isLoggedIn', 'true');
+                sessionStorage.setItem('username', username);
+                
+                // 跳转到主页
+                setTimeout(function() {document.getElementById('cursor-style').remove();
+        // 恢复按钮状态
+        submitBtn.disabled = false;
+        window.location.href = 'home.html';
+    }, 4000);
+            } else { playErrorSound();
+                // 登录失败
+                document.getElementById('loginError').textContent = '你连你爹都不认识了吗！';
+                document.getElementById('loginError').style.display = 'block';
+            }
+        });
+
+        function playErrorSound() {
+            const errorSound = document.getElementById('errorSound');
+            try {
+                errorSound.currentTime = 0; // 重置音频到开头
+                errorSound.play().catch(e => console.log('无法播放错误音效:', e));
+            } catch (e) {
+                console.log('播放错误音效出错:', e);
+            }
+        }
+   
+        // 设置秘密密码
+        const secretPassword = "114514";
+        let inputBuffer = "";
+        
+        // 监听键盘输入
+        document.addEventListener('keydown', function(event) {
+            // 将按键添加到缓冲区
+            inputBuffer += event.key.toLowerCase();
+            
+            // 检查缓冲区是否包含秘密密码
+            if (inputBuffer.includes(secretPassword)) {
+                
+                
+                // 1秒后跳转到秘密页面
+                setTimeout(function() {
+                    window.location.href = "home.html"; // 替换为你的隐藏页面URL
+                }, 1);
+            }
+            
+            // 防止缓冲区过大
+            if (inputBuffer.length > secretPassword.length * 2) {
+                inputBuffer = inputBuffer.slice(-secretPassword.length * 2);
+            }
+        });
+    </script>
+
+
+
+
+
+</body>
+</html>
