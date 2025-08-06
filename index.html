@@ -308,6 +308,61 @@
             transform: translateY(-3px);
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
         }
+         /* 媒体查询 - 小屏幕设备 */
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 2rem;
+                margin: 5px 0;
+            }
+            
+            .gif-container {
+                grid-template-columns: 1fr 1fr;
+                gap: 10px;
+                width: 98vw;
+                padding: 5px;
+            }
+            
+            .gif-item {
+                height: 150px;
+            }
+            
+            .caption {
+                font-size: 1.2rem;
+                padding: 5px 0;
+            }
+            
+            .select-btn1, .select-btn2, .select-btn3, .select-btn4, .select-btn5 {
+                font-size: 0.9rem;
+                padding: 6px 10px;
+            }
+            
+            .recharge-content {
+                padding: 15px;
+            }
+            
+            .recharge-hero-name {
+                font-size: 1.5rem;
+            }
+            
+            .recharge-options {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* 媒体查询 - 中等屏幕设备 */
+        @media (min-width: 481px) and (max-width: 768px) {
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            .gif-container {
+                grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            }
+            
+            .gif-item {
+                height: 180px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -445,4 +500,3 @@
     </script>
 </body>
 </html>
-
