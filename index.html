@@ -311,41 +311,64 @@
          /* 媒体查询 - 小屏幕设备 */
         @media (max-width: 480px) {
             h1 {
-                font-size: 2rem;
-                margin: 5px 0;
+                font-size: 24px;
+                padding: 5px 0;
+            }
+            
+            h2 {
+                font-size: 16px;
+                margin-bottom: 5px;
             }
             
             .gif-container {
                 grid-template-columns: 1fr 1fr;
-                gap: 10px;
+                gap: 8px;
                 width: 98vw;
                 padding: 5px;
             }
             
             .gif-item {
-                height: 150px;
+                aspect-ratio: 1/1;
             }
             
             .caption {
-                font-size: 1.2rem;
+                font-size: 18px;
                 padding: 5px 0;
             }
             
             .select-btn1, .select-btn2, .select-btn3, .select-btn4, .select-btn5 {
-                font-size: 0.9rem;
-                padding: 6px 10px;
+                font-size: 14px;
+                padding: 5px 10px;
+                max-width: 120px;
             }
             
             .recharge-content {
                 padding: 15px;
             }
             
+            .recharge-title {
+                font-size: 20px;
+            }
+            
             .recharge-hero-name {
-                font-size: 1.5rem;
+                font-size: 22px;
             }
             
             .recharge-options {
                 grid-template-columns: 1fr;
+            }
+            
+            .recharge-amount {
+                font-size: 16px;
+            }
+            
+            .recharge-price {
+                font-size: 12px;
+            }
+            
+            .confirm-btn {
+                padding: 10px;
+                font-size: 16px;
             }
         }
 
