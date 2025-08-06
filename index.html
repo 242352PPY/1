@@ -59,15 +59,21 @@
             width: 100%;
             max-width: 300px;
             align-items: center;
+            position: relative;
         }
 
         .gif-item {
+            user-drag: none; /* 标准属性 */
+    -webkit-user-drag: none; /* Chrome/Safari/Edge */
+    -moz-user-drag: none; /* Firefox */
+    -ms-user-drag: none; /* IE/Edge */
             width: 100%;
             height: 400px;
             object-fit: cover;
             border-radius: 8px;
             transition: transform 0.3s;
             background-color: #333;
+            cursor: pointer;
         }
 
         .gif-item:hover {
@@ -164,6 +170,50 @@
         .select-btn5:hover {
             background: rgba(171, 189, 16, 0.514);
             transform: scale(1.05);
+        }
+
+        /* 属性信息框样式 */
+        .hero-attributes {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            border-radius: 8px;
+            padding: 20px;
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 2;
+            color: white;
+            font-family: "STKaiti", "KaiTi", serif;
+            text-align: center;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .hero-attributes h3 {
+            font-size: 28px;
+            color: #ffbb00;
+            margin-bottom: 15px;
+            text-shadow: 0 0 10px rgba(255, 187, 0, 0.5);
+        }
+
+        .hero-attributes p {
+            font-size: 18px;
+            margin: 8px 0;
+            color: #d0e3d7;
+        }
+
+        .attribute-label {
+            color: #4facfe;
+            font-weight: bold;
         }
 
         /* 充值弹窗样式 */
@@ -342,6 +392,14 @@
                 max-width: 120px;
             }
             
+            .hero-attributes h3 {
+                font-size: 20px;
+            }
+            
+            .hero-attributes p {
+                font-size: 14px;
+            }
+            
             .recharge-content {
                 padding: 15px;
             }
@@ -394,6 +452,17 @@
         <!-- 第一张图片和文字 -->
         <div class="gif-card">
             <img class="gif-item" src="pic/093FFF931FBC0DBC08964DEF491C494E.jpg">
+            <div class="hero-attributes" id="attributes1">
+                <h3>郭戌</h3>
+                <p><span class="attribute-label">攻击力:</span> ★★★☆☆</p>
+                <p><span class="attribute-label">魔力:</span> ★★★★★</p>
+                <p><span class="attribute-label">防御力:</span> ★☆☆☆☆</p>
+                <p><span class="attribute-label">速度:</span> ★★☆☆☆</p>
+                <p><span class="attribute-label">技能1:</span> <span style="color:#ddff00">闪电突袭</span></p>
+                <p><span class="attribute-label">技能2:</span> <span style="color:#dd0707">火球术</span></p>
+                <p><span class="attribute-label">技能3:</span> <span style="color:#00ffff">千里冰封</span></p>
+                <p><span class="attribute-label">描述:</span> 智力型英雄，擅长各种奥术攻击</p>
+            </div>
             <div class="caption">郭戌</div>
             <button class="select-btn1">就选他了</button>
         </div>
@@ -401,6 +470,15 @@
         <!-- 第二张图片和文字 -->
         <div class="gif-card">
             <img class="gif-item" src="pic/3021FC0CE0AEB8C53608999B80C87B64.jpg">
+            <div class="hero-attributes" id="attributes2">
+                <h3>高胜骞</h3>
+                <p><span class="attribute-label">攻击力:</span> ★★★★☆</p>
+                <p><span class="attribute-label">魔力:</span> ☆☆☆☆☆</p>
+                <p><span class="attribute-label">防御力:</span> ★★☆☆☆</p>
+                <p><span class="attribute-label">速度:</span> ★★★★★</p>
+                <p><span class="attribute-label">技能:</span> 瞬移</p>
+                <p><span class="attribute-label">描述:</span> 敏捷型英雄，攻击较高，不会任何魔法</p>
+            </div>
             <div class="caption">高胜骞</div>
             <button class="select-btn2">就选他了</button>
         </div>
@@ -408,6 +486,17 @@
         <!-- 第三张图片和文字 -->
         <div class="gif-card">
             <img class="gif-item" src="pic/7D1D7B5E3F5F0FF4845EF4ED94F6E6F5.jpg">
+            <div class="hero-attributes" id="attributes3">
+                <h3>贾天毅</h3>
+                <p><span class="attribute-label">攻击力:</span> ★★★☆☆</p>
+                <p><span class="attribute-label">魔力:</span> ★★☆☆☆</p>
+                <p><span class="attribute-label">防御力:</span> ★★★★★</p>
+                <p><span class="attribute-label">速度:</span> ★☆☆☆☆</p>
+                 <p><span class="attribute-label">技能1:</span> <span style="color:#d3d5bf">钢铁防御</span></p>
+                 <p><span class="attribute-label">技能2:</span> <span style="color:#ffa600">冲撞</span></p>
+                 <p><span class="attribute-label">被动技能:</span> <span style="color:#2eff05">自动恢复</span></p>
+                <p><span class="attribute-label">描述:</span> 坦克型英雄，能承受大量伤害，但移速很慢</p>
+            </div>
             <div class="caption">贾天毅</div>
             <button class="select-btn3">就选他了</button>
         </div>
@@ -415,6 +504,12 @@
         <!-- 第四张图片和文字 -->
         <div class="gif-card">
             <img class="gif-item" src="pic/0CB156F871D503CDD2D0EF9B85322643.jpg">
+            <div class="hero-attributes" id="attributes4">
+                <h3>未知英雄</h3>
+                <p><span class="attribute-label">属性:</span> 尚未公开</p>
+                <p><span class="attribute-label">技能:</span> 敬请期待</p>
+                <p><span class="attribute-label">描述:</span> 神秘英雄即将登场</p>
+            </div>
             <div class="caption">未知</div>
             <button class="select-btn4">敬请期待</button>
         </div>
@@ -422,6 +517,19 @@
         <!-- 第五张图片和文字 -->
         <div class="gif-card">
             <img class="gif-item" src="pic/FB9B98D30BF8A335B386B84733641D94.jpg">
+            <div class="hero-attributes" id="attributes5">
+                <h3>曼</h3>
+                <p><span class="attribute-label">攻击力:</span> ★★★★★</p>
+                <p><span class="attribute-label">魔力:</span> ★★★★★</p>
+                <p><span class="attribute-label">防御力:</span> ★★★★★</p>
+                <p><span class="attribute-label">速度:</span> ★★★★★</p>
+                <p><span class="attribute-label">技能1:</span> <span style="color:#ff5500">篮球炸弹</span></p>
+                <p><span class="attribute-label">技能2:</span> <span style="color:#7108e1">24发火箭</span></p>
+                <p><span class="attribute-label">技能3:</span> <span style="color:#042df7">声声慢</span></p>
+                <p><span class="attribute-label">被动技能:</span> <span style="color:#ff00ee">摔落保护</span></p>
+                <p><span class="attribute-label">描述:</span> 全能型英雄，各方面都很强大，免疫摔落伤害</p>
+                <p><span class="attribute-label">获取方式:</span> 充值解锁</p>
+            </div>
             <div class="caption">曼</div>
             <button class="select-btn5">充值获取</button>
         </div>
@@ -462,6 +570,40 @@
     </div>
 
     <script>
+        // 英雄属性显示/隐藏功能
+        document.querySelectorAll('.gif-item').forEach((img, index) => {
+            img.addEventListener('click', function(e) {
+                e.stopPropagation(); // 阻止事件冒泡
+                const attributes = document.getElementById(`attributes${index + 1}`);
+                
+                // 如果当前属性框已显示，则隐藏它
+                if(attributes.style.display === 'flex') {
+                    attributes.style.display = 'none';
+                } else {
+                    // 否则先隐藏所有属性框，再显示当前点击的
+                    document.querySelectorAll('.hero-attributes').forEach(attr => {
+                        attr.style.display = 'none';
+                    });
+                    attributes.style.display = 'flex';
+                }
+            });
+        });
+        
+        // 点击图片外部关闭属性框
+        document.addEventListener('click', function() {
+            document.querySelectorAll('.hero-attributes').forEach(attr => {
+                attr.style.display = 'none';
+            });
+        });
+        
+        // 阻止属性框内部的点击事件冒泡
+       document.querySelectorAll('.hero-attributes').forEach(attr => {
+    attr.addEventListener('click', function(e) {
+        // 移除 e.stopPropagation();
+        this.style.display = 'none';
+            });
+        });
+
         // 英雄选择按钮事件
         document.querySelector('.select-btn1').addEventListener('click', function() {
             sessionStorage.setItem('selectedHero', '郭戌');
