@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>英雄选择</title>
     <style>
-        * {
+         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
@@ -20,160 +20,155 @@
             width: 100vw;
             overflow: hidden;
             background: black;
-        }
-        h1 {
-            font-size: 70px;
             font-family: "STKaiti", "KaiTi", serif;
-            text-align: center;
-            color: #d0e3d7;
-            margin: 0 0 0;
-            font-weight: 800;
-            line-height: 2;
-            text-shadow: 1px 1px 16px rgba(0, 0, 0, 0.9);
-        }
-        h2 {
-            font-size: 20px;
-            font-family: "STKaiti", "KaiTi", serif;
-            text-align: center;
-            color: #d0e3d7;
-            margin: 0 0 0;
-            font-weight: 800;
-            line-height: 2;
-            text-shadow: 1px 1px 16px rgba(0, 0, 0, 0.9);
-        }
-        .gif-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            grid-auto-rows: minmax(400px, auto);
-            gap: 20px;
-            height: auto;
-            width: 90vw;
-            padding: 20px;
-            margin: 0 auto;
-            justify-items: center;
-        }
-
-        .gif-card {
             display: flex;
             flex-direction: column;
-            width: 100%;
-            max-width: 300px;
             align-items: center;
+        }
+        
+        h1 {
+            font-size: 70px;
+            text-align: center;
+            color: #d0e3d7;
+            margin: 20px 0;
+            font-weight: 800;
+            text-shadow: 1px 1px 16px rgba(0, 0, 0, 0.9);
+        }
+
+        .hero-container {
+            width: 90%; /* 改为90%宽度，留出按钮空间 */
+            max-width: 2000px; /* 设置最大宽度 */
+            overflow: hidden;
             position: relative;
+            height: 700px;
+            margin: 0 auto; /* 居中 */
         }
 
-        .gif-item {
-            user-drag: none; /* 标准属性 */
-    -webkit-user-drag: none; /* Chrome/Safari/Edge */
-    -moz-user-drag: none; /* Firefox */
-    -ms-user-drag: none; /* IE/Edge */
+        .hero-slider {
+            display: flex;
+            transition: transform 0.5s ease;
+            height: 100%;
             width: 100%;
-            height: 400px;
-            object-fit: cover;
-            border-radius: 8px;
-            transition: transform 0.3s;
-            background-color: #333;
-            cursor: pointer;
         }
 
-        .gif-item:hover {
+        .hero-page {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            width: 100%;
+            flex-shrink: 0;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .hero-card {
+    display: flex;
+    flex-direction: column;
+    height: 500px; /* 固定卡片高度 */
+    width: calc(25% - 16px);
+    min-width: 180px;
+    align-items: center;
+    position: relative;
+}
+.hero-image-container {
+    width: 100%;
+    height: 400px; /* 固定图片容器高度 */
+    overflow: hidden;
+    border-radius: 10px;
+    position: relative;
+    background: linear-gradient(45deg, #1a1a1a, #2d2d2d);
+}
+
+       .hero-image {
+    width: 100%;
+    height: 80%;
+    object-fit: cover; /* 保持比例并填充容器 */
+    transition: all 0.3s;
+    border-radius: 10px;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+        .hero-image:hover {
             transform: scale(1.05);
-            z-index: 1;
             box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
         }
 
-        .caption {
-            font-family: "STKaiti", "KaiTi", serif;
+        .hero-name {
             color: #d0e3d7;
-            font-size: 40px;
+            font-size: 30px;
             text-align: center;
             padding: 15px 0 5px;
             text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.8);
             width: 100%;
         }
 
-        .select-btn1 {
-            font-family: "STKaiti", "KaiTi", serif;
+        .select-btn {
             font-size: 20px;
-            color: #ff0000d1;
             background: rgba(0, 0, 0, 0.5);
-            border: 2px solid #dd0707;
             border-radius: 25px;
-            padding: 8px 60px;
+            padding: 8px 30px;
             margin-top: 5px;
             cursor: pointer;
             transition: all 0.3s;
+            border: 2px solid;
+            color: #d0e3d7;
+            font-family: "STKaiti", "KaiTi", serif;
         }
 
-        .select-btn1:hover {
+        .select-btn:hover {
             background: rgba(117, 117, 94, 0.3);
             transform: scale(1.05);
         }
-         .select-btn2 {
-            font-family: "STKaiti", "KaiTi", serif;
-            font-size: 20px;
-           color: #ff0000d1;
+
+        /* 分页控制样式 */
+        .pagination-controls {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 20px 0;
+            gap: 40px; /* 增加按钮间距 */
+            width: 100%;
+            position: relative;
+            z-index: 10;
+        }
+
+        .page-btn {
+            position: fixed; /* 改为固定定位 */
+            top: 0;
+            height: 100vh; /* 与屏幕高度一致 */
+            width: 80px; /* 按钮宽度 */
             background: rgba(0, 0, 0, 0.5);
-            border: 2px solid #dd0707;
-            border-radius: 25px;
-            padding: 8px 60px;
-            margin-top: 5px;
+            color: #d0e3d7;
+            border: none;
             cursor: pointer;
             transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+            font-size: 40px;
         }
 
-        .select-btn2:hover {
-            background: rgba(117, 117, 94, 0.3);
-            transform: scale(1.05);
-        }
-         .select-btn3 {
-            font-family: "STKaiti", "KaiTi", serif;
-            font-size: 20px;
-           color: #ff0000d1;
-            background: rgba(0, 0, 0, 0.5);
-            border: 2px solid #dd0707;
-            border-radius: 25px;
-            padding: 8px 60px;
-            margin-top: 5px;
-            cursor: pointer;
-            transition: all 0.3s;
+        .page-btn:hover {
+            background: rgba(117, 117, 94, 0.7);
         }
 
-        .select-btn3:hover {
-            background: rgba(117, 117, 94, 0.3);
-            transform: scale(1.05);
-        }
-         .select-btn4 {
-            font-family: "STKaiti", "KaiTi", serif;
-            font-size: 20px;
-            color: #272323;
-            background: rgba(211, 199, 199, 0.5);
-            border: 2px solid #bcadad;
-            border-radius: 25px;
-            padding: 8px 60px;
-            margin-top: 5px;
-        }
-        
-         .select-btn5 {
-            font-family: "STKaiti", "KaiTi", serif;
-            font-size: 20px;
-            color: #ec6200;
-            background: rgb(238, 251, 0);
-            border: 2px solid #d0e3d7;
-            border-radius: 25px;
-            padding: 8px 60px;
-            margin-top: 5px;
-            cursor: pointer;
-            transition: all 0.3s;
+        .page-btn:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
         }
 
-        .select-btn5:hover {
-            background: rgba(171, 189, 16, 0.514);
-            transform: scale(1.05);
+        .page-indicator {
+            color: #d0e3d7;
+            font-size: 24px;
+            min-width: 100px;
+            text-align: center;
+            margin: 0 20px;
         }
-
         /* 属性信息框样式 */
-        .hero-attributes {
+         .hero-attributes {
             position: absolute;
             top: 0;
             left: 0;
@@ -186,6 +181,7 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
+            
             z-index: 2;
             color: white;
             font-family: "STKaiti", "KaiTi", serif;
@@ -215,6 +211,8 @@
             color: #4facfe;
             font-weight: bold;
         }
+
+       
 
         /* 充值弹窗样式 */
         .recharge-modal {
@@ -252,10 +250,10 @@
             top: 15px;
             right: 15px;
             font-size: 28px;
-             box-shadow: 
-    0 0px 8px rgb(255, 0, 0),
-    inset 0 0px 4px rgba(255, 255, 255, 0.8),
-    inset 0 0px 4px rgba(0, 0, 0, 0.05);
+            box-shadow: 
+                0 0px 8px rgb(255, 0, 0),
+                inset 0 0px 4px rgba(255, 255, 255, 0.8),
+                inset 0 0px 4px rgba(0, 0, 0, 0.05);
             color: white;
             cursor: pointer;
             transition: all 0.3s;
@@ -269,9 +267,8 @@
         }
 
         .close-btn:hover {
-            
             background: rgba(255, 0, 0, 0.9);
-             transform: scale(1.1);
+            transform: scale(1.1);
         }
 
         .recharge-title {
@@ -286,11 +283,11 @@
         .recharge-hero {
             text-align: center;
             margin-bottom: 20px;
+            color: #e5ff00;
         }
 
         .recharge-hero-name {
             font-size: 50px;
-              
             font-family: "STKaiti", "KaiTi", serif;
             text-align: center;
             color: #ffbb00;
@@ -358,180 +355,28 @@
             transform: translateY(-3px);
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
         }
-         /* 媒体查询 - 小屏幕设备 */
-        @media (max-width: 480px) {
-            h1 {
-                font-size: 24px;
-                padding: 5px 0;
-            }
-            
-            h2 {
-                font-size: 16px;
-                margin-bottom: 5px;
-            }
-            
-            .gif-container {
-                grid-template-columns: 1fr 1fr;
-                gap: 8px;
-                width: 98vw;
-                padding: 5px;
-            }
-            
-            .gif-item {
-                aspect-ratio: 1/1;
-            }
-            
-            .caption {
-                font-size: 18px;
-                padding: 5px 0;
-            }
-            
-            .select-btn1, .select-btn2, .select-btn3, .select-btn4, .select-btn5 {
-                font-size: 14px;
-                padding: 5px 10px;
-                max-width: 120px;
-            }
-            
-            .hero-attributes h3 {
-                font-size: 20px;
-            }
-            
-            .hero-attributes p {
-                font-size: 14px;
-            }
-            
-            .recharge-content {
-                padding: 15px;
-            }
-            
-            .recharge-title {
-                font-size: 20px;
-            }
-            
-            .recharge-hero-name {
-                font-size: 22px;
-            }
-            
-            .recharge-options {
-                grid-template-columns: 1fr;
-            }
-            
-            .recharge-amount {
-                font-size: 16px;
-            }
-            
-            .recharge-price {
-                font-size: 12px;
-            }
-            
-            .confirm-btn {
-                padding: 10px;
-                font-size: 16px;
-            }
+
+       .prev-btn {
+            left: 0px; /* 向左移动按钮位置 */
         }
 
-        /* 媒体查询 - 中等屏幕设备 */
-        @media (min-width: 481px) and (max-width: 768px) {
-            h1 {
-                font-size: 2.2rem;
-            }
-            
-            .gif-container {
-                grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-            }
-            
-            .gif-item {
-                height: 180px;
-            }
+        .next-btn {
+            right: 0px; /* 向右移动按钮位置 */
         }
     </style>
 </head>
 <body>
-    <h1>请选择你的英雄</h1>
-    <div class="gif-container">
-        <!-- 第一张图片和文字 -->
-        <div class="gif-card">
-            <img class="gif-item" src="pic/093FFF931FBC0DBC08964DEF491C494E.jpg">
-            <div class="hero-attributes" id="attributes1">
-                <h3>郭戌</h3>
-                <p><span class="attribute-label">攻击力:</span> ★★★☆☆</p>
-                <p><span class="attribute-label">魔力:</span> ★★★★★</p>
-                <p><span class="attribute-label">防御力:</span> ★☆☆☆☆</p>
-                <p><span class="attribute-label">速度:</span> ★★☆☆☆</p>
-                <p><span class="attribute-label">技能1:</span> <span style="color:#ddff00">闪电突袭</span></p>
-                <p><span class="attribute-label">技能2:</span> <span style="color:#dd0707">火球术</span></p>
-                <p><span class="attribute-label">技能3:</span> <span style="color:#00ffff">千里冰封</span></p>
-                <p><span class="attribute-label">描述:</span> 智力型英雄，擅长各种奥术攻击</p>
-            </div>
-            <div class="caption">郭戌</div>
-            <button class="select-btn1">就选他了</button>
-        </div>
-        
-        <!-- 第二张图片和文字 -->
-        <div class="gif-card">
-            <img class="gif-item" src="pic/3021FC0CE0AEB8C53608999B80C87B64.jpg">
-            <div class="hero-attributes" id="attributes2">
-                <h3>高胜骞</h3>
-                <p><span class="attribute-label">攻击力:</span> ★★★★☆</p>
-                <p><span class="attribute-label">魔力:</span> ☆☆☆☆☆</p>
-                <p><span class="attribute-label">防御力:</span> ★★☆☆☆</p>
-                <p><span class="attribute-label">速度:</span> ★★★★★</p>
-                <p><span class="attribute-label">技能:</span> 瞬移</p>
-                <p><span class="attribute-label">描述:</span> 敏捷型英雄，攻击较高，不会任何魔法</p>
-            </div>
-            <div class="caption">高胜骞</div>
-            <button class="select-btn2">就选他了</button>
-        </div>
-        
-        <!-- 第三张图片和文字 -->
-        <div class="gif-card">
-            <img class="gif-item" src="pic/7D1D7B5E3F5F0FF4845EF4ED94F6E6F5.jpg">
-            <div class="hero-attributes" id="attributes3">
-                <h3>贾天毅</h3>
-                <p><span class="attribute-label">攻击力:</span> ★★★☆☆</p>
-                <p><span class="attribute-label">魔力:</span> ★★☆☆☆</p>
-                <p><span class="attribute-label">防御力:</span> ★★★★★</p>
-                <p><span class="attribute-label">速度:</span> ★☆☆☆☆</p>
-                 <p><span class="attribute-label">技能1:</span> <span style="color:#d3d5bf">钢铁防御</span></p>
-                 <p><span class="attribute-label">技能2:</span> <span style="color:#ffa600">冲撞</span></p>
-                 <p><span class="attribute-label">被动技能:</span> <span style="color:#2eff05">自动恢复</span></p>
-                <p><span class="attribute-label">描述:</span> 坦克型英雄，能承受大量伤害，但移速很慢</p>
-            </div>
-            <div class="caption">贾天毅</div>
-            <button class="select-btn3">就选他了</button>
-        </div>
-        
-        <!-- 第四张图片和文字 -->
-        <div class="gif-card">
-            <img class="gif-item" src="pic/0CB156F871D503CDD2D0EF9B85322643.jpg">
-            <div class="hero-attributes" id="attributes4">
-                <h3>未知英雄</h3>
-                <p><span class="attribute-label">属性:</span> 尚未公开</p>
-                <p><span class="attribute-label">技能:</span> 敬请期待</p>
-                <p><span class="attribute-label">描述:</span> 神秘英雄即将登场</p>
-            </div>
-            <div class="caption">未知</div>
-            <button class="select-btn4">敬请期待</button>
-        </div>
-        
-        <!-- 第五张图片和文字 -->
-        <div class="gif-card">
-            <img class="gif-item" src="pic/FB9B98D30BF8A335B386B84733641D94.jpg">
-            <div class="hero-attributes" id="attributes5">
-                <h3>曼</h3>
-                <p><span class="attribute-label">攻击力:</span> ★★★★★</p>
-                <p><span class="attribute-label">魔力:</span> ★★★★★</p>
-                <p><span class="attribute-label">防御力:</span> ★★★★★</p>
-                <p><span class="attribute-label">速度:</span> ★★★★★</p>
-                <p><span class="attribute-label">技能1:</span> <span style="color:#ff5500">篮球炸弹</span></p>
-                <p><span class="attribute-label">技能2:</span> <span style="color:#7108e1">24发火箭</span></p>
-                <p><span class="attribute-label">技能3:</span> <span style="color:#042df7">声声慢</span></p>
-                <p><span class="attribute-label">被动技能:</span> <span style="color:#ff00ee">摔落保护</span></p>
-                <p><span class="attribute-label">描述:</span> 全能型英雄，各方面都很强大，免疫摔落伤害</p>
-                <p><span class="attribute-label">获取方式:</span> 充值解锁</p>
-            </div>
-            <div class="caption">曼</div>
-            <button class="select-btn5">充值获取</button>
+     <h1>请选择你的英雄</h1>
+    
+    <div class="hero-container">
+        <div class="hero-slider" id="heroSlider"></div>
+        <button class="page-btn prev-btn" id="prevBtn">❮</button>
+        <button class="page-btn next-btn" id="nextBtn">❯</button>
+    </div>
+    
+    <div class="pagination-controls">
+        <div class="page-indicator">
+            <span id="currentPage">1</span> / <span id="totalPages">1</span>
         </div>
     </div>
 
@@ -542,7 +387,7 @@
             <h2 class="recharge-title">英雄充值</h2>
             
             <div class="recharge-hero">
-                <div class="recharge-hero-name">曼</div>
+                <div class="recharge-hero-name" id="rechargeHeroName"></div>
                 <h2>解锁此英雄需要充值</h2>
             </div>
             
@@ -570,97 +415,490 @@
     </div>
 
     <script>
-        // 英雄属性显示/隐藏功能
-        document.querySelectorAll('.gif-item').forEach((img, index) => {
+        // 英雄数据
+        const allHeroes = [
+            {
+                id: 1,
+                name: "郭戌",
+                nameStyle:"color: #00ff00;",
+                image: "pic/093FFF931FBC0DBC08964DEF491C494E.jpg",
+                attributes: ["<span style='color:#00ff00'>✦ 品质: 优秀 ✦</span>", 
+                    "<span class='attribute-label'>攻击力</span>: ★★☆☆☆",
+                    "<span class='attribute-label'>魔力</span>: ★★★☆☆",
+                    "<span class='attribute-label'>防御力</span>: ★☆☆☆☆",
+                    "<span class='attribute-label'>速度</span>: ★★☆☆☆",
+                    "<span class='attribute-label'>技能1</span>: <span style='color:#ddff00'>闪电突袭</span>",
+                    "<span class='attribute-label'>技能2</span>: <span style='color:#dd0707'>火球术</span>",
+                    "<span class='attribute-label'>技能3</span>: <span style='color:#00ffff'>千里冰封</span>",
+                    "<span class='attribute-label'>描述</span>: 智力型人族英雄，擅长各种奥术攻击"
+                ],
+                buttonText: "就选他了",
+                buttonClass: "select-btn",
+                buttonStyle: "border-color: #dd0707; color: #ff0000d1;",
+                action: function() {
+                    sessionStorage.setItem('selectedHero', this.name);
+                    window.location.href = 'login.html';
+                }
+            },{
+                id: 2,
+                name: "高胜骞",
+                nameStyle:"color: #00ff00;",
+                image: "pic/3021FC0CE0AEB8C53608999B80C87B64.jpg",
+                attributes: ["<span style='color:#00ff00'>✦ 品质: 优秀 ✦</span>", 
+                    "<span class='attribute-label'>攻击力</span>: ★★★☆☆",
+                    "<span class='attribute-label'>魔力</span>: ☆☆☆☆☆",
+                    "<span class='attribute-label'>防御力</span>: ★★☆☆☆",
+                    "<span class='attribute-label'>速度</span>:  ★★★☆☆",
+                    "<span class='attribute-label'>技能</span>: 瞬移",                 
+                    "<span class='attribute-label'>描述</span>: 敏捷型人族英雄，攻击较高，不会任何魔法"               
+                ],
+                buttonText: "就选他了",
+                buttonClass: "select-btn",
+                buttonStyle: "border-color: #dd0707; color: #ff0000d1;",
+                action: function() {
+                    sessionStorage.setItem('selectedHero', this.name);
+                    window.location.href = 'login.html';
+                }
+            },
+            {
+                id: 3,
+                name: "贾天毅", 
+                nameStyle:"color: #00ff00;",              
+                image: "pic/7D1D7B5E3F5F0FF4845EF4ED94F6E6F5.jpg",
+                attributes: ["<span style='color:#00ff00'>✦ 品质: 优秀 ✦</span>", 
+                 "<span class='attribute-label'>攻击力</span>: ★★☆☆☆",
+            "<span class='attribute-label'>魔力</span>: ★★☆☆☆",
+            "<span class='attribute-label'>防御力</span>: ★★★☆☆",
+            "<span class='attribute-label'>速度</span>: ★☆☆☆☆",
+            "<span class='attribute-label'>技能1</span>: <span style='color:#d3d5bf'>钢铁防御</span>",
+            "<span class='attribute-label'>技能2</span>: <span style='color:#ffa600'>冲撞</span>",
+            "<span class='attribute-label'>被动技能</span>: <span style='color:#2eff05'>自动恢复</span>",
+            "<span class='attribute-label'>描述</span>: 坦克型人族英雄，能承受大量伤害，但移速很慢"
+                ],
+                buttonText: "就选他了",
+                buttonClass: "select-btn",
+                buttonStyle: "border-color: #dd0707; color: #ff0000d1;",
+                action: function() {
+                    sessionStorage.setItem('selectedHero', this.name);
+                    window.location.href = 'login.html';
+                }
+            },
+            {
+                id: 4,
+                name: "田所浩二",
+                nameStyle:"color: #0b0fdad7;",
+                image: "pic/2E3D42962C4CA42D14026417B90F7284.jpg",
+                attributes: [
+                   "<span style='color:#0b0fdad7'>✦ 品质: 精良 ✦</span>",
+            "<span class='attribute-label'>攻击力</span>: ★★★☆☆",
+            "<span class='attribute-label'>魔力</span>: ★★★☆☆",
+            "<span class='attribute-label'>防御力</span>: ★★☆☆☆",
+            "<span class='attribute-label'>速度</span>: ★★★☆☆",
+            "<span class='attribute-label'>技能1</span>: <span style='color:#ff5500'>三哼经</span>",
+            "<span class='attribute-label'>技能2</span>: <span style='color:#7108e1'>114514</span>",      
+            "<span class='attribute-label'>被动技能</span>: <span style='color:#00ff44d7'>恶臭</span>",
+            "<span class='attribute-label'>描述</span>: 恶臭的野兽族英雄，叫声遗臭万年",
+            "<span class='attribute-label'>获取方式</span>: 抽卡获取"
+                ],
+                buttonText: "未解锁",
+                buttonClass: "select-btn",
+                buttonStyle: "border-color: #bcadad; color: #272323; background: rgba(211, 199, 199, 0.5);",
+                action: function() {
+                    // 无操作
+                }
+            },
+            {
+                id: 5,
+                name: "曼",
+                 nameStyle:"color: #fffb00;",
+                image: "pic/FB9B98D30BF8A335B386B84733641D94.jpg",
+                attributes: [
+                    "<span style='color:#fffb00'>✦ 品质: 传说 ✦</span>",
+            "<span class='attribute-label'>攻击力</span>: ★★★★☆",
+            "<span class='attribute-label'>魔力</span>: ★★★★☆",
+            "<span class='attribute-label'>防御力</span>: ★★★★☆",
+            "<span class='attribute-label'>速度</span>: ★★★☆☆",
+            "<span class='attribute-label'>技能1</span>: <span style='color:#ff5500'>篮球炸弹</span>",
+            "<span class='attribute-label'>技能2</span>: <span style='color:#7108e1'>24发火箭</span>",
+            "<span class='attribute-label'>技能3</span>: <span style='color:#042df7'>声声慢</span>",
+            "<span class='attribute-label'>被动技能</span>: <span style='color:#ff00ee'>摔落保护</span>",
+            "<span class='attribute-label'>描述</span>: 全能型神族英雄，各方面都很强大，免疫摔落伤害",
+            "<span class='attribute-label'>获取方式</span>: 充值解锁"
+                ],
+                buttonText: "充值获取",
+                buttonClass: "select-btn",
+                buttonStyle: "border-color: #d0e3d7; color: #ec6200; background: rgb(238, 251, 0);",
+                action: function() {
+                    document.getElementById('rechargeHeroName').textContent = this.name;
+                    document.getElementById('rechargeModal').style.display = 'flex';
+                }
+            },
+            {
+                id: 6,
+                name: "坤坤",
+                nameStyle:"color:#8b08b3f9 ;",
+                image: "pic/E906C91A2A3AA04D89A571687F9DFB50.jpg",
+                attributes: [
+                    "<span style='color:#8b08b3f9'>✦ 品质: 史诗 ✦</span>",
+            "<span class='attribute-label'>攻击力</span>: ★★★☆☆",
+            "<span class='attribute-label'>魔力</span>: ★★★★☆",
+            "<span class='attribute-label'>防御力</span>: ★★★☆☆",
+            "<span class='attribute-label'>速度</span>: ★★★☆☆",
+            "<span class='attribute-label'>技能1</span>: <span style='color:#ff5500'>铁山靠</span>",
+            "<span class='attribute-label'>技能2</span>: <span style='color:#7108e1'>召唤篮球</span>",
+            "<span style='color:#00ffffd7'>大招</span>: <span style='color:#042df7'>鸡你太美</span>",
+            "<span class='attribute-label'>被动技能</span>: <span style='color:#ff00ee'>律师函保护</span>",
+            "<span class='attribute-label'>描述</span>: 均衡型禽族英雄，各方面都较强，每隔一段时间受律师函霸体保护",
+            "<span class='attribute-label'>获取方式</span>: 抽卡获取"
+                ],
+                buttonText: "未解锁",
+                buttonClass: "select-btn",
+                buttonStyle: "border-color: #bcadad; color: #272323; background: rgba(211, 199, 199, 0.5);",
+                action: function() {
+                    // 无操作
+                }
+            },{
+                id: 7,
+                name: "刘华强",
+                nameStyle:"color:#8b08b3f9 ;",
+                image: "pic/F3F5E1C47ABA53B0CA4FB5034ADEA3E8.jpg",
+                attributes: [
+                    "<span style='color:#8b08b3f9'>✦ 品质: 史诗 ✦</span>",
+            "<span class='attribute-label'>攻击力</span>: ★★★★★",
+            "<span class='attribute-label'>魔力</span>: ★★☆☆☆",
+            "<span class='attribute-label'>防御力</span>: ★★★☆☆",
+            "<span class='attribute-label'>速度</span>: ★★★☆☆",
+            "<span class='attribute-label'>技能1</span>: <span style='color:#ff5500'>飞刀</span>",
+            "<span class='attribute-label'>技能2</span>: <span style='color:#7108e1'>枪械攻击</span>",      
+            "<span class='attribute-label'>技能3</span>: <span style='color:#00ff44d7'>召唤西瓜投手</span>",
+            "<span class='attribute-label'>描述</span>: 狂战士型人族英雄，伤害高，擅于使用刀枪，爱吃西瓜",
+            "<span class='attribute-label'>获取方式</span>: 抽卡获取"
+                ],
+                buttonText: "未解锁",
+                buttonClass: "select-btn",
+                buttonStyle: "border-color: #bcadad; color: #272323; background: rgba(211, 199, 199, 0.5);",
+                action: function() {
+                    // 无操作
+                }
+            },{
+                id: 8,
+                name: "九命耄耋",
+                 nameStyle:"color:#0b0fdad7 ;",
+                image: "pic/16438C6C4E17AE158108C03E84DA4A68.jpg",
+                attributes: [ "<span style='color:#0b0fdad7'>✦ 品质: 精良 ✦</span>",
+            "<span class='attribute-label'>攻击力</span>: ★★★☆☆",
+            "<span class='attribute-label'>魔力</span>: ★★☆☆☆",
+            "<span class='attribute-label'>防御力</span>: ★☆☆☆☆",
+            "<span class='attribute-label'>速度</span>: ★★★☆☆",
+            "<span class='attribute-label'>技能1</span>: <span style='color:#ff5500'>哈气</span>",
+            "<span class='attribute-label'>技能2</span>: <span style='color:#7108e1'>震慑</span>",      
+            "<span class='attribute-label'>被动技能</span>: <span style='color:#00ff44d7'>九条命</span>",
+            "<span class='attribute-label'>描述</span>: 神秘的兽族英雄，拥有九条命，脾气异常暴躁",
+            "<span class='attribute-label'>获取方式</span>: 关卡获取"
+                   
+                ],
+                buttonText: "未解锁",
+                buttonClass: "select-btn",
+                buttonStyle: "border-color: #bcadad; color: #272323; background: rgba(211, 199, 199, 0.5);",
+                action: function() {
+                    // 无操作
+                }
+            },
+            {
+                id: 9,
+                name: "卢本伟",
+                nameStyle:"color: #fffb00;",
+                image: "pic/C229A53216033F05C7CDD5FE0288D000.jpg",
+                attributes: ["<span style='color:#fffb00'>✦ 品质: 传说 ✦</span>",
+                 "<span class='attribute-label'>攻击力</span>: ★★★☆☆",
+            "<span class='attribute-label'>魔力</span>: ★★★☆☆",
+            "<span class='attribute-label'>防御力</span>: ★★★☆☆",
+            "<span class='attribute-label'>速度</span>: ★★★☆☆",
+            "<span class='attribute-label'>技能1</span>: <span style='color:#ff5500'>卡布奇诺</span>",
+            "<span class='attribute-label'>技能2</span>: <span style='color:#7108e1'>咆哮</span>",      
+            "<span class='attribute-label'>大招1</span>: <span style='color:#00ff44d7'>开挂</span>",
+            "<span class='attribute-label'>大招2</span>: <span style='color:#00ff44d7'>变身卢来佛祖</span>",
+            "<span class='attribute-label'>描述</span>: 暴躁的人族英雄，虽然属性不算特别突出，但是大招非常牛逼",
+            "<span class='attribute-label'>获取方式</span>: 抽卡获取"
+                    
+                    
+                ],
+               buttonText: "未解锁",
+                buttonClass: "select-btn",
+                buttonStyle: "border-color: #bcadad; color: #272323; background: rgba(211, 199, 199, 0.5);",
+                action: function() {
+                    // 无操作
+                }
+            },
+            {
+                id: 10,
+                name: "迪迦",
+                nameStyle:"color: #ff0303;",
+                image: "pic/6AC0D6E99BD9E6C79C456892F1D93516.jpg",
+                attributes: [
+                    
+                    "<span style='color:#ff0303'>✦ 品质: 神话 ✦</span>",
+                 "<span class='attribute-label'>攻击力</span>:  <span style='color:#ff0303'>★★★★★★</span>",
+            "<span class='attribute-label'>魔力</span>: ★★★★☆",
+            "<span class='attribute-label'>防御力</span>: ★★★★☆",
+            "<span class='attribute-label'>速度</span>: ★★★★☆",
+            "<span class='attribute-label'>技能1</span>: <span style='color:#ff5500'>激光</span>",
+            "<span class='attribute-label'>技能2</span>: <span style='color:#7108e1'>？？？</span>",      
+            "<span class='attribute-label'>被动技能</span>: <span style='color:#00ff44d7'>切换形态</span>",
+            "<span class='attribute-label'>大招2</span>: <span style='color:#00ff44d7'>闪耀迪迦</span>",
+            "<span class='attribute-label'>描述</span>: 未知的光族英雄，关于他的描述甚少",
+            "<span class='attribute-label'>获取方式</span>: 未知"
+                ],
+               buttonText: "未解锁",
+                buttonClass: "select-btn",
+                buttonStyle: "border-color: #bcadad; color: #272323; background: rgba(211, 199, 199, 0.5);",
+                action: function() {
+                    // 无操作
+                }
+            },{
+                id: 11,
+                name: "郝哥",
+                nameStyle:"color: #00ff00;",
+                image: "pic/B88F8DE1AC533AFA3E62EDFBCDAE92B0.jpg",
+                attributes: ["<span style='color:#00ff00'>✦ 品质: 优秀 ✦</span>", 
+                    "<span class='attribute-label'>攻击力</span>: ★★☆☆☆",
+                    "<span class='attribute-label'>魔力</span>: ★☆☆☆☆",
+                    "<span class='attribute-label'>防御力</span>: ★★★★☆",
+                    "<span class='attribute-label'>速度</span>:  ★★★☆☆",
+                    "<span class='attribute-label'>技能1</span>:吸铁石 ", 
+                    "<span class='attribute-label'>技能2</span>:生瓜蛋子 ",                
+                    "<span class='attribute-label'>描述</span>: 防守型人族英雄，攻击较低，适合抗伤，<span style='color:#ee4102b8'>与刘华强组队时能增加他的伤害</span> ",
+                    "<span class='attribute-label'>获取方式</span>: 关卡获取" ,            
+                ],
+                buttonText: "未解锁",
+               buttonClass: "select-btn",
+                buttonStyle: "border-color: #bcadad; color: #272323; background: rgba(211, 199, 199, 0.5);",
+                action: function() {
+                    // 无操作
+                }
+            }, {
+                id: 12,
+                name: "丑爷",
+                 nameStyle:"color: #fffb00;",
+                image: "pic/3B59B43E3B99387F0537CBA6E029535E.jpg",
+                attributes: [
+                    "<span style='color:#fffb00'>✦ 品质: 传说 ✦</span>",
+                 "<span class='attribute-label'>攻击力</span>: ★★★★★",
+            "<span class='attribute-label'>魔力</span>: ★★★★☆",
+            "<span class='attribute-label'>防御力</span>: ★★★☆☆",
+            "<span class='attribute-label'>速度</span>: ★★★★☆",
+            "<span class='attribute-label'>技能1</span>: <span style='color:#ff5500'>混乱</span>",
+            "<span class='attribute-label'>技能2</span>: <span style='color:#7108e1'>绝望</span>",      
+            "<span class='attribute-label'>大招1</span>: <span style='color:#00ff44d7'>THAT GIRL</span>",
+            "<span class='attribute-label'>描述</span>: <span style='color:#ee4102b8'>小丑是致胜的王牌</span>",
+            "<span class='attribute-label'>获取方式</span>: 抽卡获取"
+                ],
+                buttonText: "未解锁",
+                buttonClass: "select-btn",
+                buttonStyle: "border-color: #bcadad; color: #272323; background: rgba(211, 199, 199, 0.5);",
+                action: function() {
+                    // 无操作
+                }
+            }, {
+                id: 13,
+                name: "未知",
+                image: "pic/0CB156F871D503CDD2D0EF9B85322643.jpg",
+                attributes: [
+                    "<span class='attribute-label'>品质</span>: 未知",
+            "<span class='attribute-label'>属性</span>: 尚未公开",
+            "<span class='attribute-label'>描述</span>: 神秘英雄即将登场"
+                ],
+                buttonText: "敬请期待",
+                buttonClass: "select-btn",
+                buttonStyle: "border-color: #bcadad; color: #272323; background: rgba(211, 199, 199, 0.5);",
+                action: function() {
+                    // 无操作
+                }
+            },
+        ];
+
+        // 分页系统
+        const heroesPerPage = 5;
+        let currentPage = 0;
+        let heroPages = [];
+        const heroSlider = document.getElementById('heroSlider');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const currentPageSpan = document.getElementById('currentPage');
+        const totalPagesSpan = document.getElementById('totalPages');
+
+        // 创建英雄卡片
+        function createHeroCard(hero) {
+            const card = document.createElement('div');
+            card.className = 'hero-card';
+            
+           // 创建图片容器
+    const imgContainer = document.createElement('div');
+    imgContainer.className = 'hero-image-container';
+    
+    // 创建英雄图片
+    const img = document.createElement('img');
+    img.className = 'hero-image';
+    img.src = hero.image;
+    img.alt = hero.name;
+    
+    // 将图片放入容器
+    imgContainer.appendChild(img);
+    card.appendChild(imgContainer);
+            
+            // 创建属性框
+            const attributes = document.createElement('div');
+            attributes.className = 'hero-attributes';
+            attributes.id = `attributes${hero.id}`;
+            
+            // 添加英雄名称
+            const name = document.createElement('h3');
+            name.textContent = hero.name;
+            name.style.cssText = hero.nameStyle; 
+            attributes.appendChild(name);
+            
+            // 添加属性
+            hero.attributes.forEach(attr => {
+                const p = document.createElement('p');
+                p.innerHTML = attr;
+                attributes.appendChild(p);
+            });
+            
+            // 创建标题
+            const caption = document.createElement('div');
+            caption.className = 'hero-name';
+            caption.textContent = hero.name;
+             
+            
+            // 创建按钮
+            const button = document.createElement('button');
+            button.className = hero.buttonClass;
+            button.textContent = hero.buttonText;
+            button.style.cssText = hero.buttonStyle;
+            button.addEventListener('click', hero.action.bind(hero));
+            
+            // 组装卡片
+            card.appendChild(img);
+            card.appendChild(attributes);
+            card.appendChild(caption);
+            card.appendChild(button);
+            
+            // 点击图片显示属性
             img.addEventListener('click', function(e) {
-                e.stopPropagation(); // 阻止事件冒泡
-                const attributes = document.getElementById(`attributes${index + 1}`);
+                e.stopPropagation();
+                const attributes = card.querySelector('.hero-attributes');
+                document.querySelectorAll('.hero-attributes').forEach(attr => {
+                    if (attr !== attributes) attr.style.display = 'none';
+                });
+                attributes.style.display = attributes.style.display === 'flex' ? 'none' : 'flex';
+            });
+            
+            return card;
+        }
+
+        // 生成英雄卡片和分页
+        function generateHeroCards() {
+            const totalPages = Math.ceil(allHeroes.length / heroesPerPage);
+            totalPagesSpan.textContent = totalPages;
+            
+            // 清空容器
+            heroSlider.innerHTML = '';
+            heroPages = [];
+            
+            // 生成每一页
+            for (let i = 0; i < totalPages; i++) {
+                const pageDiv = document.createElement('div');
+                pageDiv.className = 'hero-page';
                 
-                // 如果当前属性框已显示，则隐藏它
-                if(attributes.style.display === 'flex') {
-                    attributes.style.display = 'none';
+                // 当前页的英雄范围
+                const start = i * heroesPerPage;
+                const end = Math.min(start + heroesPerPage, allHeroes.length);
+                
+                // 添加英雄卡片
+                for (let j = start; j < end; j++) {
+                    const card = createHeroCard(allHeroes[j]);
+                    pageDiv.appendChild(card);
+                }
+                
+                heroSlider.appendChild(pageDiv);
+                heroPages.push(pageDiv);
+            }
+            
+            // 初始显示第一页
+            updatePageDisplay();
+        }
+        // 更新页面显示
+        function updatePageDisplay() {
+            currentPageSpan.textContent = currentPage + 1;
+            prevBtn.disabled = currentPage === 0;
+            nextBtn.disabled = currentPage === heroPages.length - 1;
+            
+            // 更新滑块位置
+            heroSlider.style.transform = `translateX(-${currentPage * 100}%)`;
+            
+            // 更新活动页面
+            heroPages.forEach((page, index) => {
+                if (index === currentPage) {
+                    page.classList.add('active');
                 } else {
-                    // 否则先隐藏所有属性框，再显示当前点击的
-                    document.querySelectorAll('.hero-attributes').forEach(attr => {
-                        attr.style.display = 'none';
-                    });
-                    attributes.style.display = 'flex';
+                    page.classList.remove('active');
                 }
             });
-        });
-        
-        // 点击图片外部关闭属性框
-        document.addEventListener('click', function() {
-            document.querySelectorAll('.hero-attributes').forEach(attr => {
-                attr.style.display = 'none';
-            });
-        });
-        
-        // 阻止属性框内部的点击事件冒泡
-       document.querySelectorAll('.hero-attributes').forEach(attr => {
-    attr.addEventListener('click', function(e) {
-        // 移除 e.stopPropagation();
-        this.style.display = 'none';
-            });
-        });
+        }
 
-        // 英雄选择按钮事件
-        document.querySelector('.select-btn1').addEventListener('click', function() {
-            sessionStorage.setItem('selectedHero', '郭戌');
-            window.location.href = 'login.html';
-        });
-        
-        document.querySelector('.select-btn2').addEventListener('click', function() {
-            sessionStorage.setItem('selectedHero', '高胜骞');
-            window.location.href = 'login.html';
-        });
-        
-        document.querySelector('.select-btn3').addEventListener('click', function() {
-            sessionStorage.setItem('selectedHero', '贾天毅');
-            window.location.href = 'login.html';
-        });
-        
-        // 充值获取按钮事件
-        document.querySelector('.select-btn5').addEventListener('click', function() {
-            document.getElementById('rechargeModal').style.display = 'flex';
-        });
-        
-        // 关闭按钮事件
-        document.querySelector('.close-btn').addEventListener('click', function() {
-            document.getElementById('rechargeModal').style.display = 'none';
-        });
-        
-        // 点击弹窗外部关闭
-        document.getElementById('rechargeModal').addEventListener('click', function(e) {
-            if(e.target === this) {
-                this.style.display = 'none';
-            }
-        });
-        
-        // 充值选项点击事件
-        document.querySelectorAll('.recharge-option').forEach(option => {
-            option.addEventListener('click', function() {
-                document.querySelectorAll('.recharge-option').forEach(opt => {
-                    opt.classList.remove('selected');
+        // 翻页函数
+        function goToPage(page) {
+            if (page < 0 || page >= heroPages.length) return;
+            
+            currentPage = page;
+            updatePageDisplay();
+        }
+
+        // 初始化
+        document.addEventListener('DOMContentLoaded', function() {
+            generateHeroCards();
+            
+            prevBtn.addEventListener('click', () => goToPage(currentPage - 1));
+            nextBtn.addEventListener('click', () => goToPage(currentPage + 1));
+            
+            // 点击图片外部关闭属性框
+            document.addEventListener('click', function() {
+                document.querySelectorAll('.hero-attributes').forEach(attr => {
+                    attr.style.display = 'none';
                 });
-                this.classList.add('selected');
             });
-        });
-        
-        // 确认充值按钮事件
-        document.querySelector('.confirm-btn').addEventListener('click', function() {
-            const selectedOption = document.querySelector('.recharge-option.selected');
-            if(selectedOption) {
-                const amount = selectedOption.getAttribute('data-amount');
-                alert(`充值成功！您已充值${amount}元，获得英雄"曼"，以下是DLC内容与隐藏剧情！`);
+
+            // 充值弹窗相关事件
+            document.querySelector('.close-btn').addEventListener('click', function() {
                 document.getElementById('rechargeModal').style.display = 'none';
-                window.location.href="https://www.bilibili.com/video/BV1qU4y1F73A/?spm_id_from=333.337.search-card.all.click&vd_source=173d136c50fcfcc337cecbf5ba7adec9";
-                
-                // 这里可以添加实际的充值逻辑
-                // 例如跳转到支付页面或发送充值请求
-            } else {
-                alert('请选择充值金额');
-            }
+            });
+            
+            document.getElementById('rechargeModal').addEventListener('click', function(e) {
+                if(e.target === this) {
+                    this.style.display = 'none';
+                }
+            });
+            
+            document.querySelectorAll('.recharge-option').forEach(option => {
+                option.addEventListener('click', function() {
+                    document.querySelectorAll('.recharge-option').forEach(opt => {
+                        opt.classList.remove('selected');
+                    });
+                    this.classList.add('selected');
+                });
+            });
+            
+            document.querySelector('.confirm-btn').addEventListener('click', function() {
+                const selectedOption = document.querySelector('.recharge-option.selected');
+                if(selectedOption) {
+                    const amount = selectedOption.getAttribute('data-amount');
+                    alert(`充值成功！您已充值${amount}元，获得英雄"曼"，以下是DLC内容与隐藏剧情！`);
+                    document.getElementById('rechargeModal').style.display = 'none';
+                    window.location.href="https://www.bilibili.com/video/BV1qU4y1F73A/?spm_id_from=333.337.search-card.all.click&vd_source=173d136c50fcfcc337cecbf5ba7adec9";
+                } else {
+                    alert('请选择充值金额');
+                }
+            });
         });
     </script>
 </body>
